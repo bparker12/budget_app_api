@@ -2,7 +2,7 @@ from django.db import models
 from .department import Department
 
 
-class DepartmentHours(models.Model):
+class DepartmentHour(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     hours_worked = models.IntegerField()

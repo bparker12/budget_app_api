@@ -22,7 +22,7 @@ from budgetappapi.views import *
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'budgeters', Budgeters, 'budgeter')
 router.register(r'departments', Departments, 'department')
-router.register(r'departmenthoursclasses', DepartmentHoursClass, 'departmenthoursclass')
+router.register(r'DepartmentHours', DepartmentHours, 'DepartmentHour')
 router.register(r'projectdepartments', ProjectDepartments, 'projectdepartment')
 router.register(r'projectbudgets', ProjectBudgets, 'projectbudget')
 

@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "department_id": 1,
-      "department_hours_id": 1
+      "department_hour_id": 1
     }
   }
 ]

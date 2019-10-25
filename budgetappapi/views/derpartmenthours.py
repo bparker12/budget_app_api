@@ -4,13 +4,13 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
 from rest_framework.decorators import action
-from budgetappapi.models import DepartmentHours
+from budgetappapi.models import DepartmentHour
 
 
 class DepartmentHoursSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
-        model = DepartmentHours
+        model = DepartmentHour
         url = serializers.HyperlinkedIdentityField(
             view_name='departmenthours',
             lookup_field='id'
@@ -18,32 +18,32 @@ class DepartmentHoursSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'url', 'created_at', 'hours_worked')
 
 
-class DepartmentHoursClass(ViewSet):
+class DepartmentHours(ViewSet):
 
     def create(self, request):
 
-        new_department_hours = DepartmentHours()
+        new_department_hours = DepartmentHour()
         new_department_hours.hours = request.data['hours']
 
 
         new_department_hours.save()
 
-        serializer = DepartmentHoursSerializer(new_department_hours, context={'request': request})
+        serializer = DepartmentHours(new_department_hours, context={'request': request})
 
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
 
         try:
-            department_hours = DepartmentHours.objects.get(pk=pk)
-            serializer = DepartmentHoursSerializer(department_hours, context={'request': request})
+            department_hours = DepartmentHour.objects.get(pk=pk)
+            serializer = DepartmentHours(department_hours, context={'request': request})
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
 
     def update(self, request, pk=None):
 
-        department_hours = DepartmentHours.objects.get(pk=pk)
+        department_hours = DepartmentHour.objects.get(pk=pk)
         new_department_hours.hours = request.data['hours']
 
         department_hours.save()
@@ -53,7 +53,7 @@ class DepartmentHoursClass(ViewSet):
     def destroy(self, request, pk=None):
 
         try:
-            department_hours = DepartmentHours.objects.get(pk=pk)
+            department_hours = DepartmentHour.objects.get(pk=pk)
             department_hours.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
@@ -67,8 +67,8 @@ class DepartmentHoursClass(ViewSet):
 
     def list(self, request):
 
-        department_hours = DepartmentHours.objects.all()
+        department_hours = DepartmentHour.objects.all()
 
-        serializer = DepartmentHoursSerializer(
+        serializer = DepartmentHours(
             department_hours, many=True, context={'request': request})
         return Response(serializer.data)

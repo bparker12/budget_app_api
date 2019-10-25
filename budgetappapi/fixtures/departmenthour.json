@@ -1,6 +1,6 @@
 [
     {
-        "model": "budgetappapi.departmenthours",
+        "model": "budgetappapi.departmenthour",
         "pk": 1,
         "fields": {
             "created_at": "2019-10-25",
@@ -8,7 +8,7 @@
         }
     },
     {
-        "model": "budgetappapi.departmenthours",
+        "model": "budgetappapi.departmenthour",
         "pk": 2,
         "fields": {
             "created_at": "2019-10-25",
