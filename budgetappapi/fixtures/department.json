@@ -1,0 +1,20 @@
+[
+    {
+        "model": "budgetappapi.department",
+        "pk": 1,
+        "fields": {
+            "name": "Junior Software Engineer",
+            "quantity": 12,
+            "rate": 23.50
+        }
+    },
+    {
+        "model": "budgetappapi.department",
+        "pk": 2,
+        "fields": {
+            "name": "Senior Software Engineer",
+            "quantity": 6,
+            "rate": 50.00
+        }
+    }
+]

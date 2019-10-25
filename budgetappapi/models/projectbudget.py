@@ -1,10 +1,10 @@
 from django.db import models
 from .budgeter import Budgeter
-from .project_department import ProjectDepartment
+from .projectdepartment import ProjectDepartment
 
 
 
-class ProductBudget(models.Model):
+class ProjectBudget(models.Model):
 
     budgeter = models.ForeignKey(Budgeter, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)

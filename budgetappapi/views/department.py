@@ -21,7 +21,7 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
         )
         fields = ('id', 'url', 'name', 'quantity', 'rate')
 
-class Products(ViewSet):
+class Departments(ViewSet):
     """Products for Bangazon API"""
 
     def create(self, request):

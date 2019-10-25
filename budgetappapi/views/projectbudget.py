@@ -20,6 +20,7 @@ class ProjectBudgetSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'url', 'budgeter', 'name', 'length', 'projectdepartment')
         depth = 1
 
+class ProjectBudgets(ViewSet):
     def create(self, request):
         project_budget = ProjectBudget()
         project_budget.name = request.data['name']

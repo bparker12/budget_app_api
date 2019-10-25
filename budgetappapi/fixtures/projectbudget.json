@@ -1,0 +1,13 @@
+[
+    {
+        "model": "budgetappapi.projectbudget",
+        "pk": 1,
+        "fields": {
+            "name": "Visa Contract",
+            "length": 6,
+            "budgeter_id": 1,
+            "projectDepartment_id": 1
+        }
+    }
+
+]
