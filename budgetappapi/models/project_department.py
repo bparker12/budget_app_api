@@ -1,6 +1,6 @@
 from django.db import models
 from .department import Department
-from .department_hours import DepartmentHours
+from .departmenthours import DepartmentHours
 
 
 class ProjectDepartment(models.Model):
