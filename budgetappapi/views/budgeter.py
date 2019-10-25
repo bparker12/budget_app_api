@@ -26,6 +26,7 @@ class Budgeters(ViewSet):
         new_budgeter = Budgeter()
         new_budgeter.company = request.data["company"]
 
+
         new_budgeter.save()
 
         serializer = BudgeterSerializer(new_budgeter, context={'request': request})
