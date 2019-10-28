@@ -1,0 +1,18 @@
+[
+    {
+        "model": "budgetappapi.departmenthour",
+        "pk": 1,
+        "fields": {
+            "created_at": "2019-10-25",
+            "hours_worked": 2
+        }
+    },
+    {
+        "model": "budgetappapi.departmenthour",
+        "pk": 2,
+        "fields": {
+            "created_at": "2019-10-25",
+            "hours_worked": 6
+        }
+    }
+]

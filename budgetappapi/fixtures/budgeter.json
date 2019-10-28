@@ -1,0 +1,10 @@
+[
+    {
+        "model": "budgetappapi.budgeter",
+        "pk": 1,
+        "fields": {
+            "company": "Verizon",
+            "user_id": 1
+        }
+    }
+]

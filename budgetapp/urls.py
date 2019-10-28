@@ -16,11 +16,20 @@ Including another URLconf
 from django.conf.urls import url, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
+from budgetappapi.models import *
+from budgetappapi.views import *
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'budgeters', Budgeters, 'budgeter')
+router.register(r'departments', Departments, 'department')
+router.register(r'DepartmentHours', DepartmentHours, 'DepartmentHour')
+router.register(r'projectdepartments', ProjectDepartments, 'projectdepartment')
+router.register(r'projectbudgets', ProjectBudgets, 'projectbudget')
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^register$', register_user),
+    url(r'^login$', login_user),
     url(r'^api-token-auth/', obtain_auth_token),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
