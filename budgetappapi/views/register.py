@@ -51,7 +51,6 @@ def register_user(request):
     # on Django's built-in User model
     new_user = User.objects.create_user(
         username=req_body['username'],
-        email=req_body['email'],
         password=req_body['password'],
         first_name=req_body['first_name'],
         last_name=req_body['last_name']
@@ -59,6 +58,7 @@ def register_user(request):
 
     budgeter = Budgeter.objects.create(
         company=req_body['company'],
+        user=new_user
     )
 
     # Commit the user to the database by saving it
