@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from budgetappapi.models import Budgeter
 from budgetappapi.models import ProjectBudget
+from budgetappapi.models import ProjectDepartment
 
 
 
@@ -17,7 +18,7 @@ class ProjectBudgetSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         # This fields method is to pull every attribute or piece of data from an instance of a created Model
-        fields = ('id', 'url', 'budgeter', 'name', 'length', 'projectdepartment')
+        fields = ('id', 'url', 'budgeter_id', 'name', 'length', 'projectDepartment_id')
         depth = 1
 
 class ProjectBudgets(ViewSet):
@@ -26,7 +27,7 @@ class ProjectBudgets(ViewSet):
         project_budget.name = request.data['name']
         project_budget.length = request.data['length']
         budgeter = Budgeter.objects.get(user=request.auth.user)
-        project_department = ProjectBudget.objects.get(pk=request.data['project_department_id'])
+        project_department = ProjectDepartment.objects.get(pk=request.data['project_department_id'])
 
         project_budget.project_department = project_department
         project_budget.budgeter = budgeter
@@ -51,7 +52,7 @@ class ProjectBudgets(ViewSet):
         project_budget.name = request.data['name']
         project_budget.length = request.data['length']
         budgeter = Budgeter.objects.get(user=request.auth.user)
-        project_department = ProjectBudget.objects.get(pk=request.data['project_department_id'])
+        project_department = ProjectDepartment.objects.get(pk=request.data['project_department_id'])
 
         project_budget.project_department = project_department
         project_budget.budgeter = budgeter

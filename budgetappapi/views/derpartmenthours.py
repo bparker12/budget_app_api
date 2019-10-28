@@ -15,7 +15,7 @@ class DepartmentHoursSerializer(serializers.HyperlinkedModelSerializer):
             view_name='departmenthours',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'created_at', 'hours_worked')
+        fields = ('id', 'created_at', 'hours_worked')
 
 
 class DepartmentHours(ViewSet):
@@ -69,6 +69,6 @@ class DepartmentHours(ViewSet):
 
         department_hours = DepartmentHour.objects.all()
 
-        serializer = DepartmentHours(
+        serializer = DepartmentHoursSerializer(
             department_hours, many=True, context={'request': request})
         return Response(serializer.data)

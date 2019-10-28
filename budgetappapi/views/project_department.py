@@ -17,7 +17,7 @@ class ProjectDepartmentSerializer(serializers.HyperlinkedModelSerializer):
             view_name='ProjectDepartment',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'department', 'department_hours')
+        fields = ('id', 'url', 'department', 'department_hour_id')
         depth = 1
 
 

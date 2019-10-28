@@ -16,7 +16,7 @@ class BudgeterSerializer(serializers.HyperlinkedModelSerializer):
             view_name='budgeter',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'company', 'user')
+        fields = ('id', 'company', 'user_id')
         depth = 1
 
 class Budgeters(ViewSet):
@@ -46,11 +46,17 @@ class Budgeters(ViewSet):
 
         budgeters = Budgeter.objects.all()
 
-        # Support filtering Products by user id
-        # user_id = self.request.query_params.get('budgeter', None)
-        # if user_id is not None:
-        #     budgeters = budgeters.filter(user__id=user_id)
-
         serializer = BudgeterSerializer(
             budgeters, many=True, context={'request': request})
+        return Response(serializer.data)
+
+    @action(methods=['get'], detail=False)
+    def currentBudgeter(self, request):
+
+        try:
+            budgeter = Budgeter.objects.get(user=request.auth.user)
+        except budgeter.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = BudgeterSerializer(budgeter, context={'request': request})
         return Response(serializer.data)
