@@ -22,22 +22,19 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'url', 'name', 'quantity', 'rate')
 
 class Departments(ViewSet):
-    """Products for Bangazon API"""
 
     def create(self, request):
-        """Handle POST operations
 
-        Returns:
-            Response -- JSON serialized Attraction instance
-        """
-        new_department = Department()
-        new_department.name = request.data["name"]
-        new_department.rate = request.data["rate"]
-        new_department.quantity = request.data["quantity"]
+        for info in request.data:
 
-        new_department.save()
+            new_department = Department()
+            new_department.name = info["name"]
+            new_department.rate = info["rate"]
+            new_department.quantity = info["quantity"]
 
-        serializer = DepartmentSerializer(new_department, context={'request': request})
+            new_department.save()
+
+            serializer = DepartmentSerializer(new_department, context={'request': request})
 
         return Response(serializer.data)
 
