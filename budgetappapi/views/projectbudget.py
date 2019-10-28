@@ -79,11 +79,12 @@ class ProjectBudgets(ViewSet):
 
         project_budget = ProjectBudget.objects.all()
 
-        # # Support filtering products by product categories
-        # name = self.request.query_params.get('name', None)
-        # if name is not None:
-        #     product_types = product_types.filter(name__id=name)
+        try:
+            budgeter = Budgeter.objects.get(user=request.auth.user)
+            projects_for_budgeter = ProjectBudget.objects.filter(budgeter_id=budgeter)
+        except ProjectBudget.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = ProjectBudgetSerializer(
-            project_budget, many=True, context={'request': request})
+            projects_for_budgeter, many=True, context={'request': request})
         return Response(serializer.data)
