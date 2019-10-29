@@ -4,7 +4,7 @@ rm -rf budgetappapi/migrations
 rm db.sqlite3
 python manage.py makemigrations budgetappapi
 python manage.py migrate
-python manage.py loaddata user
+python manage.py loaddata users
 python manage.py loaddata token
 python manage.py loaddata budgeter
 python manage.py loaddata department

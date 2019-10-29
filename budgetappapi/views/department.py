@@ -19,7 +19,7 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
             view_name='department',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'name', 'quantity', 'rate')
+        fields = ('id', 'url', 'name', 'quantity', 'rate', 'budgeter')
 
 class Departments(ViewSet):
 
@@ -28,6 +28,8 @@ class Departments(ViewSet):
         for info in request.data:
 
             new_department = Department()
+            budgeter = Budgeter.objects.get(user=request.auth.user)
+            new_department.budgeter = budgeter
             new_department.name = info["name"]
             new_department.rate = info["rate"]
             new_department.quantity = info["quantity"]
