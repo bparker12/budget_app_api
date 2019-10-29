@@ -7,6 +7,7 @@ from rest_framework.decorators import action
 from budgetappapi.models import ProjectDepartment
 from budgetappapi.models import Department
 from budgetappapi.models import DepartmentHour
+from budgetappapi.models import ProjectBudget
 
 
 class ProjectDepartmentSerializer(serializers.HyperlinkedModelSerializer):
@@ -27,9 +28,11 @@ class ProjectDepartments(ViewSet):
 
         new_project_deptarment = ProjectDepartment()
         department = Department.objects.get(pk=request.data["department_id"])
+        project_budget = ProjectBudget.objects.get(pk=request.data["project_budget_id"])
         departmenthours = DepartmentHour.objects.get(pk=request.data['deparmenthours_id'])
 
         new_project_deptarment.department = department
+        new_project_deptarment.project_budget = project_budget
         new_project_deptarment.departmenthours = departmenthours
         new_project_deptarment.save()
 
