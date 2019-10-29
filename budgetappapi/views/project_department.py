@@ -18,7 +18,7 @@ class ProjectDepartmentSerializer(serializers.HyperlinkedModelSerializer):
             view_name='ProjectDepartment',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'department', 'department_hour_id')
+        fields = ('id', 'url', 'department', 'department_hour_id', 'project_budget')
         depth = 1
 
 
@@ -27,7 +27,7 @@ class ProjectDepartments(ViewSet):
     def create(self, request):
 
         new_project_deptarment = ProjectDepartment()
-        department = Department.objects.get(pk=request.data["department_id"])
+        department = Department.objects.get(pk=request.data["department.id"])
         project_budget = ProjectBudget.objects.get(pk=request.data["project_budget_id"])
         departmenthours = DepartmentHour.objects.get(pk=request.data['deparmenthours_id'])
 
