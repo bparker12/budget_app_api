@@ -1,6 +1,5 @@
 from django.db import models
 from .budgeter import Budgeter
-from .projectdepartment import ProjectDepartment
 
 
 
