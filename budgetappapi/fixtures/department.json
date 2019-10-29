@@ -5,7 +5,8 @@
         "fields": {
             "name": "Junior Software Engineer",
             "quantity": 12,
-            "rate": 23.50
+            "rate": 23.50,
+            "budgeter": 1
         }
     },
     {
@@ -14,7 +15,8 @@
         "fields": {
             "name": "Senior Software Engineer",
             "quantity": 6,
-            "rate": 50.00
+            "rate": 50.00,
+            "budgeter": 1
         }
     }
 ]

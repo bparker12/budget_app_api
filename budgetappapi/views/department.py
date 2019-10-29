@@ -5,7 +5,7 @@ from rest_framework import serializers
 from rest_framework import status
 from rest_framework.decorators import action
 from budgetappapi.models import Department
-
+from budgetappapi.models import Budgeter
 
 class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for park areas
@@ -71,7 +71,8 @@ class Departments(ViewSet):
 
     def list(self, request):
 
-        department = Department.objects.all()
+        budgeter = Budgeter.objects.get(user=request.auth.user)
+        department = Department.objects.filter(budgeter=budgeter)
 
         serializer = DepartmentSerializer(
             department, many=True, context={'request': request})
