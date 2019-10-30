@@ -8,6 +8,7 @@ from budgetappapi.models import Budgeter
 from budgetappapi.models import ProjectBudget
 from budgetappapi.models import ProjectDepartment
 from budgetappapi.models import Department
+from .project_department import ProjectDepartmentSerializer
 
 
 
@@ -36,13 +37,14 @@ class ProjectBudgets(ViewSet):
 
         project_budget.save()
         for dept in request.data['dept']:
-            project_department.department = Department.objects.get(pk=request.data['id'])
             project_department.project_budget = project_budget
+            project_department.department = Department.objects.get(pk=dept['id'])
+
 
             project_department.save()
 
 
-            serializer = ProjectBudgetSerializer(project_budget, context={'request': request})
+            serializer = ProjectDepartmentSerializer(project_department, context={'request': request})
 
         return Response(serializer.data)
 

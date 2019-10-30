@@ -8,7 +8,7 @@ class ProjectBudget(models.Model):
     budgeter = models.ForeignKey(Budgeter, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     length = models.IntegerField()
-    department = models.ManyToManyField(Department, through="ProjectDepartment")
+    department = models.ManyToManyField("Department", through="ProjectDepartment")
 
     class Meta:
             verbose_name = ("ProjectBudget")
