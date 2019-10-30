@@ -7,6 +7,8 @@ from rest_framework.decorators import action
 from budgetappapi.models import Budgeter
 from budgetappapi.models import ProjectBudget
 from budgetappapi.models import ProjectDepartment
+from budgetappapi.models import Department
+from .project_department import ProjectDepartmentSerializer
 
 
 
@@ -18,23 +20,30 @@ class ProjectBudgetSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         # This fields method is to pull every attribute or piece of data from an instance of a created Model
-        fields = ('id', 'url', 'budgeter_id', 'name', 'length', 'projectDepartment_id')
+        fields = ('id', 'url', 'budgeter_id', 'name', 'length')
         depth = 1
 
 class ProjectBudgets(ViewSet):
     def create(self, request):
+
         project_budget = ProjectBudget()
         project_budget.name = request.data['name']
         project_budget.length = request.data['length']
         budgeter = Budgeter.objects.get(user=request.auth.user)
-        project_department = ProjectDepartment.objects.get(pk=request.data['project_department_id'])
 
-        project_budget.project_department = project_department
         project_budget.budgeter = budgeter
 
         project_budget.save()
 
-        serializer = ProjectBudgetSerializer(project_budget, context={'request': request})
+        for dept in request.data['dept']:
+            project_department = ProjectDepartment()
+            project_department.project_budget = project_budget
+            project_department.department = Department.objects.get(pk=dept['id'])
+
+            project_department.save()
+
+
+        serializer = ProjectDepartmentSerializer(project_department, context={'request': request})
 
         return Response(serializer.data)
 
@@ -52,9 +61,7 @@ class ProjectBudgets(ViewSet):
         project_budget.name = request.data['name']
         project_budget.length = request.data['length']
         budgeter = Budgeter.objects.get(user=request.auth.user)
-        project_department = ProjectDepartment.objects.get(pk=request.data['project_department_id'])
 
-        project_budget.project_department = project_department
         project_budget.budgeter = budgeter
 
         project_budget.save()
