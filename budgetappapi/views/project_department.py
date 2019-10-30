@@ -1,4 +1,5 @@
 from django.http import HttpResponseServerError
+from django.db.models import OuterRef
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
@@ -8,6 +9,7 @@ from budgetappapi.models import ProjectDepartment
 from budgetappapi.models import Department
 from budgetappapi.models import DepartmentHour
 from budgetappapi.models import ProjectBudget
+from budgetappapi.models import Budgeter
 
 
 class ProjectDepartmentSerializer(serializers.HyperlinkedModelSerializer):
@@ -78,11 +80,8 @@ class ProjectDepartments(ViewSet):
 
     def list(self, request):
 
+        budgeter = Budgeter.objects.get(user=request.auth.user)
         project_department = ProjectDepartment.objects.all()
-
-        department = self.request.query_params.get('department', None)
-        department_hours = self.request.query_params.get('department_hours', None)
-
 
         # if product is not None:
         #     project_department = project_department.filter(product__id=product)
