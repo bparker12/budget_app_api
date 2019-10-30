@@ -26,8 +26,6 @@ class ProjectBudgetSerializer(serializers.HyperlinkedModelSerializer):
 class ProjectBudgets(ViewSet):
     def create(self, request):
 
-        project_department = ProjectDepartment()
-
         project_budget = ProjectBudget()
         project_budget.name = request.data['name']
         project_budget.length = request.data['length']
@@ -36,15 +34,16 @@ class ProjectBudgets(ViewSet):
         project_budget.budgeter = budgeter
 
         project_budget.save()
+
         for dept in request.data['dept']:
+            project_department = ProjectDepartment()
             project_department.project_budget = project_budget
             project_department.department = Department.objects.get(pk=dept['id'])
-
 
             project_department.save()
 
 
-            serializer = ProjectDepartmentSerializer(project_department, context={'request': request})
+        serializer = ProjectDepartmentSerializer(project_department, context={'request': request})
 
         return Response(serializer.data)
 
