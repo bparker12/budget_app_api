@@ -59,6 +59,7 @@ class Departments(ViewSet):
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, pk=None):
+
         try:
             department = Department.objects.get(pk=pk)
             department.delete()
