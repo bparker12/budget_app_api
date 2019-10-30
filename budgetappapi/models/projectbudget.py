@@ -5,7 +5,7 @@ from .department import Department
 
 class ProjectBudget(models.Model):
 
-    budgeter = models.ForeignKey(Budgeter, on_delete=models.CASCADE)
+    budgeter = models.ForeignKey(Budgeter, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=50)
     length = models.IntegerField()
     department = models.ManyToManyField("Department", through="ProjectDepartment")
