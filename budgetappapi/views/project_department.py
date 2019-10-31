@@ -10,10 +10,14 @@ from budgetappapi.models import Department
 from budgetappapi.models import DepartmentHour
 from budgetappapi.models import ProjectBudget
 from budgetappapi.models import Budgeter
+from .department import DepartmentSerializer
+from .projectbudget import ProjectBudgetSerializer
 
 
 class ProjectDepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
+    department = DepartmentSerializer(many=False)
+    project_budget = ProjectBudgetSerializer(many=False)
     class Meta:
         model = ProjectDepartment
         url = serializers.HyperlinkedIdentityField(
