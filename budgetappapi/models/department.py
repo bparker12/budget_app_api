@@ -2,7 +2,7 @@ from django.db import models
 from .budgeter import Budgeter
 
 class Department(models.Model):
-
+    
     name = models.CharField(max_length=50)
     quantity = models.IntegerField()
     rate = models.DecimalField(max_digits=7, decimal_places=2)

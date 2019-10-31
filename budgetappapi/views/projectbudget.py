@@ -8,7 +8,7 @@ from budgetappapi.models import Budgeter
 from budgetappapi.models import ProjectBudget
 from budgetappapi.models import ProjectDepartment
 from budgetappapi.models import Department
-from .project_department import ProjectDepartmentSerializer
+# from .project_department import ProjectDepartmentSerializer
 
 
 
