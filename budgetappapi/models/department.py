@@ -20,9 +20,3 @@ class Department(models.Model):
         for employee in employees:
             remaining = self.quantity - employee.quantity
             return remaining
-        # print(employees)
-        # remaining = 0
-        # for employee in employees.quantity:
-        #     employee - quantity
-        #     print(employee.quantity)
-        # return remaining
