@@ -1,5 +1,4 @@
 from django.db import models
-from .department import Department
 
 
 class DepartmentHour(models.Model):
@@ -10,3 +9,4 @@ class DepartmentHour(models.Model):
     class Meta:
             verbose_name = ("Deparment Hours")
             verbose_name_plural = ("Deparment Hours")
+

@@ -5,7 +5,8 @@
     "fields": {
       "department_id": 1,
       "department_hour_id": 1,
-      "project_budget_id": 1
+      "project_budget_id": 1,
+      "quantity": 10
     }
   }
 ]

@@ -87,10 +87,6 @@ class ProjectDepartments(ViewSet):
         budgeter = Budgeter.objects.get(user=request.auth.user)
         project_department = ProjectDepartment.objects.all()
 
-        # if product is not None:
-        #     project_department = project_department.filter(product__id=product)
-        # if order is not None:
-        #     project_department = project_department.filter(order_payment=None)
 
         serializer = ProjectDepartmentSerializer(
             project_department, many=True, context={'request': request})
