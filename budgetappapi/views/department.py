@@ -20,6 +20,7 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         fields = ('id', 'url', 'name', 'quantity', 'rate', 'budgeter')
+        # 'employees_left'
 
 class Departments(ViewSet):
 

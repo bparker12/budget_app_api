@@ -20,7 +20,7 @@ class ProjectBudgetSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         # This fields method is to pull every attribute or piece of data from an instance of a created Model
-        fields = ('id', 'url', 'budgeter_id', 'name', 'length', 'department')
+        fields = ('id', 'url', 'budgeter_id', 'name', 'length')
         depth = 1
 
 class ProjectBudgets(ViewSet):
@@ -39,6 +39,7 @@ class ProjectBudgets(ViewSet):
             project_department = ProjectDepartment()
             project_department.project_budget = project_budget
             project_department.department = Department.objects.get(pk=dept['id'])
+            # project_department.quantity = request.data['quantity']  
 
             project_department.save()
 
