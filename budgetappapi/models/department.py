@@ -13,10 +13,10 @@ class Department(models.Model):
         verbose_name = ("Department")
         verbose_name_plural = ("Departments")
 
-    @property
-    def employees_left(self):
-        employees = ProjectDepartment.objects.filter(department=self)
-        remaining = 0
-        for employee in employees:
-            remaining = self.quantity - employee.quantity
-            return remaining
+    # @property
+    # def employees_left(self):
+    #     employees = ProjectDepartment.objects.filter(department=self)
+    #     remaining = 0
+    #     for employee in employees:
+    #         remaining = self.quantity - employee.quantity
+    #         return remaining

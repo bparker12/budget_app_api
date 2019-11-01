@@ -39,7 +39,7 @@ class ProjectBudgets(ViewSet):
             project_department = ProjectDepartment()
             project_department.project_budget = project_budget
             project_department.department = Department.objects.get(pk=dept['id'])
-            project_department.quantity = request.data['quantity']  
+            # project_department.quantity = request.data['quantity']  
 
             project_department.save()
 

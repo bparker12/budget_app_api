@@ -19,7 +19,8 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
             view_name='department',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'name', 'quantity', 'rate', 'budgeter', 'employees_left')
+        fields = ('id', 'url', 'name', 'quantity', 'rate', 'budgeter')
+        # 'employees_left'
 
 class Departments(ViewSet):
 
