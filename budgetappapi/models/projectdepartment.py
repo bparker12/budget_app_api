@@ -11,6 +11,14 @@ class ProjectDepartment(models.Model):
             verbose_name_plural = ("ProjectDepartments")
 
     @property
+    def budgeted_monthly_hours(self):
+        quantity = self.department.quantity
+        weekly_hours = quantity * 40
+        yearly_hours = weekly_hours * 52
+        monthly_hours = yearly_hours/12
+        return monthly_hours
+
+    @property
     def weekly_cost(self):
         rate = self.department.rate
         quantity = self.department.quantity

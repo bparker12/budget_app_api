@@ -5,6 +5,8 @@ from rest_framework import serializers
 from rest_framework import status
 from rest_framework.decorators import action
 from budgetappapi.models import DepartmentHour
+from budgetappapi.models import ProjectDepartment
+from .project_department import ProjectDepartmentSerializer
 
 
 class DepartmentHoursSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,12 +25,22 @@ class DepartmentHours(ViewSet):
     def create(self, request):
 
         new_department_hours = DepartmentHour()
-        new_department_hours.hours = request.data['hours']
+        new_department_hours.hours_worked = request.data['hours']
 
 
         new_department_hours.save()
 
-        serializer = DepartmentHours(new_department_hours, context={'request': request})
+        project_department = ProjectDepartment()
+
+        projectid = request.data['projectDepartmentId']
+
+        project_department = ProjectDepartment.objects.get(pk= projectid)
+
+        project_department.department_hour = new_department_hours
+
+        project_department.save()
+
+        serializer = ProjectDepartmentSerializer(project_department, context={'request': request})
 
         return Response(serializer.data)
 

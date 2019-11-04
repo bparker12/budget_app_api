@@ -20,12 +20,6 @@ class ProjectBudget(models.Model):
     #     projectDept = ProjectDepartment.objects.filter(project_budget_id=self)
 
 
-
-
-
-
-
-
     @property
     def weekly_cost(self):
         projectDepts = ProjectDepartment.objects.filter(project_budget_id=self)
