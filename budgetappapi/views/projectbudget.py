@@ -20,8 +20,7 @@ class ProjectBudgetSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         # This fields method is to pull every attribute or piece of data from an instance of a created Model
-        fields = ('id', 'url', 'budgeter_id', 'name', 'length', 'weekly_cost')
-         # , 'monthly_cost', 'total_cost')
+        fields = ('id', 'url', 'budgeter_id', 'name', 'length', 'weekly_cost', 'monthly_cost', 'total_cost')
         depth = 1
 
 class ProjectBudgets(ViewSet):

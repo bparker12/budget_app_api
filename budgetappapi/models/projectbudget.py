@@ -29,22 +29,24 @@ class ProjectBudget(models.Model):
     @property
     def weekly_cost(self):
         projectDepts = ProjectDepartment.objects.filter(project_budget_id=self)
-        print(projectDepts)
 
-        rate = []
+        rate = 0
+        quantity = 0
         for projectDep in projectDepts:
-            print(projectDep.department.rate)
-            rate.append(projectDep.department.rate)
-            print(rate)
-        return sum(rate)
+            rate += projectDep.department.rate
+            quantity += projectDep.department.quantity
+
+        weekly_time = quantity * 40
+        weekly_cost = weekly_time * rate
+        return weekly_cost
 
 
-    # @property
-    # def monthly_cost(self):
-    #     yearly_cost = self.weekly_cost * 52
-    #     monthly_cost = yearly_cost/12
-    #     return monthly_cost
+    @property
+    def monthly_cost(self):
+        yearly_cost = self.weekly_cost * 52
+        monthly_cost = yearly_cost/12
+        return monthly_cost
 
-    # @property
-    # def total_cost(self):
-    #    return self.monthly_cost * self.length
+    @property
+    def total_cost(self):
+       return self.monthly_cost * self.length
