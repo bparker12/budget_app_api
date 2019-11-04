@@ -24,7 +24,7 @@ class ProjectDepartmentSerializer(serializers.HyperlinkedModelSerializer):
             view_name='ProjectDepartment',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'department', 'department_hour_id', 'project_budget', 'weekly_cost', 'monthly_cost', 'total_cost')
+        fields = ('id', 'url', 'department', 'department_hour_id', 'project_budget', 'weekly_cost', 'monthly_cost', 'total_cost', 'budgeted_monthly_hours')
         depth = 1
 
 
@@ -86,6 +86,15 @@ class ProjectDepartments(ViewSet):
 
         budgeter = Budgeter.objects.get(user=request.auth.user)
         project_department = ProjectDepartment.objects.all()
+
+        projectId = self.request.query_params.get('project_budget', None)
+        project_dept_id = self.request.query_params.get('project_department', None)
+
+        if projectId is not None:
+            project_department = project_department.filter(project_budget_id=projectId)
+
+        if project_dept_id is not None:
+            project_department = project_department.filter(id=project_dept_id)
 
 
         serializer = ProjectDepartmentSerializer(
