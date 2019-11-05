@@ -11,6 +11,13 @@ class ProjectDepartment(models.Model):
             verbose_name_plural = ("ProjectDepartments")
 
     @property
+    def project_length_remaining(self):
+        if self.department_hour == None:
+            return self.project_budget.length
+        else:
+            return self.project_budget.length - self.department_hour.month_counter
+
+    @property
     def budgeted_monthly_hours(self):
         quantity = self.department.quantity
         weekly_hours = quantity * 40
