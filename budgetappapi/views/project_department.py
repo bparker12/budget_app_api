@@ -27,7 +27,7 @@ class ProjectDepartmentSerializer(serializers.HyperlinkedModelSerializer):
             view_name='ProjectDepartment',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'department', 'department_hour', 'project_budget', 'weekly_cost', 'monthly_cost', 'total_cost', 'budgeted_monthly_hours', 'project_length_remaining')
+        fields = ('id', 'url', 'department', 'department_hour', 'project_budget', 'weekly_cost', 'monthly_cost', 'total_cost', 'budgeted_monthly_hours', 'project_length_remaining', 'actual_monthly_cost', 'monthly_dif')
         depth = 1
 
 
@@ -75,15 +75,27 @@ class ProjectDepartments(ViewSet):
         try:
 
             project_department = ProjectDepartment.objects.get(pk=pk)
+            budget_id = project_department.project_budget
+
             project_department.delete()
 
-            return Response({}, status=status.HTTP_204_NO_CONTENT)
+            checked_department = ProjectDepartment.objects.filter(project_budget_id = budget_id)
+
+            if checked_department:
+
+                return Response({}, status=status.HTTP_204_NO_CONTENT)
+            else:
+                project_budget = ProjectBudget.objects.get(pk=budget_id.id)
+
+                project_budget.delete()
+
+                return Response({}, status=status.HTTP_204_NO_CONTENT)
 
         except ProjectDepartment.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
         except Exception as ex:
-            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def list(self, request):
 
