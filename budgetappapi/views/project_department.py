@@ -75,23 +75,27 @@ class ProjectDepartments(ViewSet):
         try:
 
             project_department = ProjectDepartment.objects.get(pk=pk)
+            budget_id = project_department.project_budget
 
             project_department.delete()
 
-            # checked_department =
+            checked_department = ProjectDepartment.objects.filter(project_budget_id = budget_id)
 
-            # if checked_department:
+            if checked_department:
 
-            #     project_department.budget_id = project_department.get
+                return Response({}, status=status.HTTP_204_NO_CONTENT)
+            else:
+                project_budget = ProjectBudget.objects.get(pk=budget_id.id)
 
+                project_budget.delete()
 
-            return Response({}, status=status.HTTP_204_NO_CONTENT)
+                return Response({}, status=status.HTTP_204_NO_CONTENT)
 
         except ProjectDepartment.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
         except Exception as ex:
-            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def list(self, request):
 
