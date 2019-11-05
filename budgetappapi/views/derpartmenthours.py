@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from budgetappapi.models import DepartmentHour
 from budgetappapi.models import ProjectDepartment
-from .project_department import ProjectDepartmentSerializer
+# from .project_department import ProjectDepartmentSerializer
 
 
 class DepartmentHoursSerializer(serializers.HyperlinkedModelSerializer):
@@ -17,32 +17,38 @@ class DepartmentHoursSerializer(serializers.HyperlinkedModelSerializer):
             view_name='departmenthours',
             lookup_field='id'
         )
-        fields = ('id', 'created_at', 'hours_worked')
+        fields = ('id', 'url', 'created_at', 'hours_worked')
 
 
 class DepartmentHours(ViewSet):
 
     def create(self, request):
 
-        new_department_hours = DepartmentHour()
-        new_department_hours.hours_worked = request.data['hours']
+        if request.data['department_hour_id'] == None:
+
+            new_department_hours = DepartmentHour()
+            new_department_hours.hours_worked = request.data['hours']
+            new_department_hours.month_counter = 1
 
 
-        new_department_hours.save()
+            new_department_hours.save()
 
-        project_department = ProjectDepartment()
+            projectid = request.data['projectDepartmentId']
 
-        projectid = request.data['projectDepartmentId']
+            project_department = ProjectDepartment.objects.get(pk= projectid)
+            project_department.department_hour = new_department_hours
+            project_department.save()
+        else:
 
-        project_department = ProjectDepartment.objects.get(pk= projectid)
+            new_department_hours = DepartmentHour.objects.get(pk= request.data['department_hour_id'])
+            new_department_hours.hours_worked = request.data['hours']
+            new_department_hours.month_counter = new_department_hours.month_counter +1
+            new_department_hours.save()
 
-        project_department.department_hour = new_department_hours
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+        # serializer = ProjectDepartmentSerializer(project_department, context={'request': request})
 
-        project_department.save()
-
-        serializer = ProjectDepartmentSerializer(project_department, context={'request': request})
-
-        return Response(serializer.data)
+        # return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
 

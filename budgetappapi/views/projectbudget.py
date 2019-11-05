@@ -44,9 +44,10 @@ class ProjectBudgets(ViewSet):
             project_department.save()
 
 
-        serializer = ProjectDepartmentSerializer(project_department, context={'request': request})
+        # serializer = ProjectDepartmentSerializer(project_department, context={'request': request})
 
-        return Response(serializer.data)
+        # return Response(serializer.data)
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
 
     def retrieve(self, request, pk=None):
         try:

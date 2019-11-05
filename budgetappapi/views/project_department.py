@@ -12,19 +12,22 @@ from budgetappapi.models import ProjectBudget
 from budgetappapi.models import Budgeter
 from .department import DepartmentSerializer
 from .projectbudget import ProjectBudgetSerializer
+from .derpartmenthours import DepartmentHoursSerializer
 
 
 class ProjectDepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
     department = DepartmentSerializer(many=False)
     project_budget = ProjectBudgetSerializer(many=False)
+    department_hour = DepartmentHoursSerializer(many=False)
+
     class Meta:
         model = ProjectDepartment
         url = serializers.HyperlinkedIdentityField(
             view_name='ProjectDepartment',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'department', 'department_hour_id', 'project_budget', 'weekly_cost', 'monthly_cost', 'total_cost', 'budgeted_monthly_hours')
+        fields = ('id', 'url', 'department', 'department_hour', 'project_budget', 'weekly_cost', 'monthly_cost', 'total_cost', 'budgeted_monthly_hours')
         depth = 1
 
 
