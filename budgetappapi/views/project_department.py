@@ -27,7 +27,7 @@ class ProjectDepartmentSerializer(serializers.HyperlinkedModelSerializer):
             view_name='ProjectDepartment',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'department', 'department_hour', 'project_budget', 'weekly_cost', 'monthly_cost', 'total_cost', 'budgeted_monthly_hours', 'project_length_remaining')
+        fields = ('id', 'url', 'department', 'department_hour', 'project_budget', 'weekly_cost', 'monthly_cost', 'total_cost', 'budgeted_monthly_hours', 'project_length_remaining', 'actual_monthly_cost', 'monthly_dif')
         depth = 1
 
 
@@ -75,7 +75,15 @@ class ProjectDepartments(ViewSet):
         try:
 
             project_department = ProjectDepartment.objects.get(pk=pk)
+
             project_department.delete()
+
+            # checked_department =
+
+            # if checked_department:
+
+            #     project_department.budget_id = project_department.get
+
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
