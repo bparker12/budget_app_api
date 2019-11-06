@@ -114,7 +114,7 @@ class ProjectDepartments(ViewSet):
     def list(self, request):
 
         budgeter = Budgeter.objects.get(user=request.auth.user)
-        project_department = ProjectDepartment.objects.all()
+        project_department = ProjectDepartment.objects.filter(department__budgeter_id=budgeter.id)
 
         projectId = self.request.query_params.get('project_budget', None)
         project_dept_id = self.request.query_params.get('project_department', None)

@@ -76,3 +76,4 @@ class ProjectDepartment(models.Model):
         total_cost = self.monthly_cost * length
         return total_cost
 
+
