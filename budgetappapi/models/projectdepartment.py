@@ -28,8 +28,24 @@ class ProjectDepartment(models.Model):
             return monthly_cost
 
     @property
+    def actual_project_cost(self):
+        if self.department_hour == None:
+            return 0
+        else:
+            return self.actual_monthly_cost * (self.project_length_remaining +1)
+            # hours_worked = self.department_hour.hours_worked
+            # dept_cost = hours_worked * self.department.rate
+            # remaining_cost = self.monthly_cost * self.project_length_remaining
+            # return int(dept_cost) + remaining_cost
+
+
+    @property
     def monthly_dif(self):
         return self.monthly_cost - self.actual_monthly_cost
+
+    @property
+    def project_diff(self):
+        return self.total_cost - self.actual_project_cost
 
     @property
     def budgeted_monthly_hours(self):
