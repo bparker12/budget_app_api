@@ -44,3 +44,7 @@ class ProjectBudget(models.Model):
     @property
     def total_cost(self):
        return self.monthly_cost * self.length
+
+    # @property
+    # def user(self):
+    #     return ProjectDepartment.objects.all()

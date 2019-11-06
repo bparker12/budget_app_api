@@ -27,7 +27,7 @@ class ProjectDepartmentSerializer(serializers.HyperlinkedModelSerializer):
             view_name='ProjectDepartment',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'department', 'department_hour', 'project_budget', 'weekly_cost', 'monthly_cost', 'total_cost', 'budgeted_monthly_hours', 'project_length_remaining', 'actual_monthly_cost', 'monthly_dif')
+        fields = ('id', 'url', 'department', 'department_hour', 'project_budget', 'weekly_cost', 'monthly_cost', 'total_cost', 'budgeted_monthly_hours', 'project_length_remaining', 'actual_monthly_cost', 'monthly_dif', 'actual_project_cost', 'project_diff')
         depth = 1
 
 
@@ -76,20 +76,34 @@ class ProjectDepartments(ViewSet):
 
             project_department = ProjectDepartment.objects.get(pk=pk)
             budget_id = project_department.project_budget
+            dept_hour = project_department.department_hour
+
 
             project_department.delete()
 
             checked_department = ProjectDepartment.objects.filter(project_budget_id = budget_id)
 
-            if checked_department:
 
-                return Response({}, status=status.HTTP_204_NO_CONTENT)
+            if dept_hour:
+                department_hours = DepartmentHour.objects.get(pk=dept_hour.id)
+                department_hours.delete()
+                if checked_department:
+                    return Response({}, status=status.HTTP_204_NO_CONTENT)
+                else:
+                    project_budget = ProjectBudget.objects.get(pk=budget_id.id)
+
+                    project_budget.delete()
+                    return Response({}, status=status.HTTP_204_NO_CONTENT)
             else:
-                project_budget = ProjectBudget.objects.get(pk=budget_id.id)
+                if checked_department:
+                    return Response({}, status=status.HTTP_204_NO_CONTENT)
+                else:
+                    project_budget = ProjectBudget.objects.get(pk=budget_id.id)
 
-                project_budget.delete()
+                    project_budget.delete()
+                    return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-                return Response({}, status=status.HTTP_204_NO_CONTENT)
+
 
         except ProjectDepartment.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
@@ -100,7 +114,7 @@ class ProjectDepartments(ViewSet):
     def list(self, request):
 
         budgeter = Budgeter.objects.get(user=request.auth.user)
-        project_department = ProjectDepartment.objects.all()
+        project_department = ProjectDepartment.objects.filter(department__budgeter_id=budgeter.id)
 
         projectId = self.request.query_params.get('project_budget', None)
         project_dept_id = self.request.query_params.get('project_department', None)
