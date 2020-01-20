@@ -4,7 +4,10 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.response import Response
 from budgetappapi.models import Budgeter
+from .budgeter import BudgeterSerializer
+
 
 
 @csrf_exempt
@@ -46,11 +49,15 @@ def register_user(request):
 
     # Load the JSON string of the request body into a dict
     req_body = json.loads(request.body.decode())
+    username = req_body['username']
+    budgeter = Budgeter.objects.get(user_id=1)
+
+
 
     # Create a new user by invoking the `create_user` helper method
     # on Django's built-in User model
     new_user = User.objects.create_user(
-        username=req_body['username'],
+        username=username,
         password=req_body['password'],
         first_name=req_body['first_name'],
         last_name=req_body['last_name']
