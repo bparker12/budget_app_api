@@ -1,9 +1,10 @@
-Built using Python, Django, and the Django REST Framework for serving data to the
-[client-side application](https://github.com/bparker12/budget_app_client) via HTTP
+# Vend-O-Matic
 
-# Getting Started
+Built using Python, Django, and the Django REST Framework
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+## Getting Started
+
+These instructions are to walk you through cloning down the repository, get the virtual environment running, and set up the database.
 
 ### Requirements
 
@@ -15,43 +16,49 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-1. Clone down this repository and cd into it.
-2. Once inside this repository, cd into `budget_app_api` and open your VSCode here with
+1. In the terminal, select a directory to use, and then clone down this repository and cd into it.
+
+2. Once inside this repository, cd into `Vending_test` and open your VSCode here with
 `code .`
+#### Virtual Environment
 1. Create your virtual environment
 ```
-python -m venv budgetAppEnv
+python -m venv vendingTestEnv
 ```
 * Start virtual environment on Mac
 ```
-source ./budgetAppEnv/bin/activate
+source ./vendingTestEnv/bin/activate
 ```
 * Start virtual environment on Windows
-```
-source ./budgetAppEnv/Scripts/activate
-```
-5. Run `cd ..` You should be in a directory containing `requirements.txt`
-6. Install the app's dependencies:
+- in the Command Prompt, cd into ```VendingTestEnv/Scripts```
+- activate
+- then cd back to ```Vending_test```
+
+6. Ensure that you are at ```Vending_test``` and then it is time to install the app's dependencies:
 ```
 pip install -r requirements.txt
 ```
 
 7. How to DL the set up fixtures
 
-## `seed_db.sh`
+#### Setting Up the Database (`Redo_db.sh`)
 This is our way of managing database migrations.
 
-* Set execute permissions
+* Set execute permissions by running the below in your terminal
 ```
-chmod -x seed_db.sh
+chmod -x Reset_db.sh
 ```
-* **CLOSE ALL CONNECTIONS TO THE DATABASE**
+ **CLOSE ALL CONNECTIONS TO THE DATABASE**
 * Run the script
 ```
-./seed_db.sh
+./Restet_db.sh
 ```
+* Running the above in the terminal will also be how to reset the database if you would like to rerun any tests
 
 * Fire up that server! (will need to be completed in command prompt for windows)
 ```
 python manage.py runserver
 ```
+
+### Testing
+The original testing for this project was conducted using POSTMAN, click [here](https://www.getpostman.com/downloads/) to download
